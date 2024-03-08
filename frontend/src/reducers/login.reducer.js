@@ -2,7 +2,7 @@ import { LOGIN, LOGIN_ERROR } from '../actions/post.actions';
 
 const initialState = {
     isAuthenticated: false,
-    loading: true,
+    loading: false,
     token: "",
     email: "",
     password: "",
@@ -27,7 +27,7 @@ export default function loginReducer(state = initialState, action) {
                 ...state,
                 isAuthenticated: false,
                 loading: false,
-                token: null,
+                token: "",
                 email: null,
                 password: null,
                 message: action.payload.message,

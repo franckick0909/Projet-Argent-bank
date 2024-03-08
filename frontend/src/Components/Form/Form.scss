@@ -5,22 +5,18 @@
     font-size: 0.95rem;
     margin-top: 0.5rem;
     text-align: left;
-    padding: 0.5rem 0.3rem;
+    padding: 0 0.3rem;
     display: flex;
     align-items: center;
-    transform: scale(0);
-    opacity: 0;
     transition: transform 0.3s ease-in-out;
 }
 
 .active {
     transform: scale(1);
     background: lightgreen;
-    opacity: 1;
 }
 
 .out{
         transform: scale(1);
         background: lightcoral;
-        opacity: 1;
 }

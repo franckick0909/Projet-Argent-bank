@@ -5,6 +5,8 @@ import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginPosts } from "../../actions/post.actions";
 import { Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
 
@@ -13,6 +15,7 @@ const Form = () => {
   const form = useRef();
   const login = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleForm = (e) => {
     e.preventDefault();
@@ -33,6 +36,22 @@ const Form = () => {
     form.current.reset();
   };
 
+
+
+  useEffect(() => {
+
+      if (login.isAuthenticated === true) {
+        navigate("/user");
+        dispatch({ type: "LOGIN", payload: { isAuthenticated: false } });
+        dispatch({ type: "LOGIN", payload: { token: true } });
+    }
+
+    if (form.current[2].checked === true) {
+      dispatch({ type: "LOGIN", payload: { isAuthenticated: true } });
+      dispatch({ type: "LOGIN", payload: { token: true } });
+    }
+  }, [login.isAuthenticated, navigate, dispatch]);
+  
 
   return (
     <form ref={form} onSubmit={(e) => handleForm(e)}>
@@ -57,23 +76,10 @@ const Form = () => {
         {login.loading ? "loading..." : "sign in"}
       </button>
 
-      {/* <div className={`message ${login.message ? "active" || "out" : ""}`}>
-        
-        <p className="">
-          {login.message === "Error: data and hash arguments required" ? (
-            ""
-          ) : (
-            login.message
-          )}
-        </p>
-      </div> */}
-
       <div>
-        <p className={`message ${login.isAuthenticated === true ? "active" : null && login.error  === true ? "out" : null}`}>
+        <p className={`message ${login.isAuthenticated === true ? "active" :  "out" }`}>
 
-          {login.message === "User successfully logged in" ? (
-            <Navigate to="/user" />
-          ) : login.message === "Error: data and hash arguments required" ? (
+          {login.message === "Error: data and hash arguments required" ? (
             ""
           ) : (
             login.message
