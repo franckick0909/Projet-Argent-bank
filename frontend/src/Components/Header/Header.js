@@ -24,7 +24,8 @@ const Header = () => {
       dispatch({ type: TOKEN, payload: { token: null } });
       sessionStorage.removeItem("token");
       localStorage.removeItem("token");
-      navigate("/user");
+      navigate("/");
+      window.location.reload();
     } else if (isAuthenticated === false) {
       navigate("/login");
     }

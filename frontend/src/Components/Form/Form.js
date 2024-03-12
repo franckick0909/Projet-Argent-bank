@@ -37,14 +37,13 @@ const Form = () => {
 
   useEffect(() => {
     if (login.isAuthenticated === true) {
-      login.message ? console.log(login.message) : console.log("no message");
       setTimeout(() => {
         navigate("/user");
-      }, 3000);
+      }, 2000);
     } else if (login.isAuthenticated === false) {
       setTimeout(() => {
         dispatch({ type: LOGIN_ERROR, payload: { message: "" } });
-      }, 3000);
+      }, 2000);
     }
 
     if (login.token) {
@@ -57,6 +56,10 @@ const Form = () => {
       dispatch({ type: LOGIN, payload: { token: true } });
       localStorage.setItem("token", login.token);
       console.log("token");
+    }
+
+    if (login.message === "Error: data and hash arguments required") {
+      dispatch({ type: LOGIN_ERROR, payload: { message: null } });
     }
   }, [
     login.isAuthenticated,
@@ -95,7 +98,7 @@ const Form = () => {
           className={`message ${
             login.isAuthenticated === true ? "green" : "red"
           }`}>
-          {login.message ? login.message : " "}
+          {login.message}
         </p>
       </div>
     </form>

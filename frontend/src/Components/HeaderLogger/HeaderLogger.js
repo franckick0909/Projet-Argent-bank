@@ -26,7 +26,8 @@ const navigate = useNavigate();
       dispatch({ type: TOKEN, payload: { token: null } });
       sessionStorage.removeItem("token");
       localStorage.removeItem("token");
-      navigate("/user");
+      navigate("/");
+      window.location.reload();
     } else {
       navigate("/login");
     }
