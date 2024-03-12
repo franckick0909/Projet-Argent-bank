@@ -7,7 +7,7 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducers";
-import { loginPosts, profilePosts } from "./actions/post.actions";
+import { loginPosts, profilePosts,  } from "./actions/post.actions";
 
 
 const store = configureStore({  // création du store
@@ -16,7 +16,7 @@ const store = configureStore({  // création du store
 });
 
 store.dispatch(loginPosts());  // dispatch de l'action loginPosts
-store.dispatch(profilePosts());
+store.dispatch(profilePosts()); // dispatch de l'action profilePosts
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

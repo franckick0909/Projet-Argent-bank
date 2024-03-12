@@ -11,12 +11,12 @@
     transition: transform 0.3s ease-in-out;
 }
 
-.active {
+.green {
     transform: scale(1);
     background: lightgreen;
 }
 
-.out{
+.red{
         transform: scale(1);
         background: lightcoral;
 }

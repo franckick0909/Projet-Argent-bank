@@ -1,6 +1,6 @@
-import { PROFILE, PROFILE_ERROR } from "../actions/post.actions";
+import { PROFILE } from "../actions/post.actions";
 
-const initialState = {};
+const initialState = {}
 
 
 export default function profileReducer(state = initialState, action) {
@@ -8,14 +8,11 @@ export default function profileReducer(state = initialState, action) {
         case PROFILE:
             return {
                 ...state,
-                profile: action.payload,
+                userName: action.payload.userName,
+                firstName: action.payload.firstName,
+                lastName: action.payload.lastName,
+                email: action.payload.email
             };
-        case PROFILE_ERROR:
-            return {
-                ...state,
-                profile: null,
-            };
-
         default:
             return state;
     }

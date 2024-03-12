@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginPosts } from "../../actions/post.actions";
-import { Navigate } from "react-router-dom";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { LOGIN } from "../../actions/post.actions";
+import { TOKEN } from "../../actions/post.actions";
+import { LOGIN_ERROR } from "../../actions/post.actions";
 
 const Form = () => {
-
-
   // STATES
   const form = useRef();
   const login = useSelector((state) => state.loginReducer);
@@ -19,8 +19,6 @@ const Form = () => {
 
   const handleForm = (e) => {
     e.preventDefault();
-
-    console.log(form);
 
     const loginData = {
       email: form.current[0].value,
@@ -31,37 +29,53 @@ const Form = () => {
       isAuthenticated: login.isAuthenticated,
       loading: login.loading,
     };
-    console.log(loginData);
+    console.log(form.current[2].checked);
+    console.log(login.token);
     dispatch(loginPosts(loginData));
     form.current.reset();
   };
 
-
-
   useEffect(() => {
-
-      if (login.isAuthenticated === true) {
+    if (login.isAuthenticated === true) {
+      login.message ? console.log(login.message) : console.log("no message");
+      setTimeout(() => {
         navigate("/user");
-        dispatch({ type: "LOGIN", payload: { isAuthenticated: false } });
-        dispatch({ type: "LOGIN", payload: { token: true } });
+      }, 3000);
+    } else if (login.isAuthenticated === false) {
+      setTimeout(() => {
+        dispatch({ type: LOGIN_ERROR, payload: { message: "" } });
+      }, 3000);
+    }
+
+    if (login.token) {
+      dispatch({ type: TOKEN, payload: { token: login.token } });
+      localStorage.setItem("token", login.token);
+      console.log(login.token + "token");
     }
 
     if (form.current[2].checked === true) {
-      dispatch({ type: "LOGIN", payload: { isAuthenticated: true } });
-      dispatch({ type: "LOGIN", payload: { token: true } });
+      dispatch({ type: LOGIN, payload: { token: true } });
+      localStorage.setItem("token", login.token);
+      console.log("token");
     }
-  }, [login.isAuthenticated, navigate, dispatch]);
-  
+  }, [
+    login.isAuthenticated,
+    login.token,
+    form,
+    dispatch,
+    navigate,
+    login.message,
+  ]);
 
   return (
     <form ref={form} onSubmit={(e) => handleForm(e)}>
       <div className="input-wrapper">
         <label htmlFor="email">Email</label>
-        <input required type="email" id="email" />
+        <input type="email" id="email" />
       </div>
       <div className="input-wrapper">
         <label htmlFor="password">Password</label>
-        <input required id="password" />
+        <input id="password" />
       </div>
       <div className="input-remember">
         <input type="checkbox" id="remember-me" />
@@ -72,18 +86,16 @@ const Form = () => {
         home
       </Link>
 
-      <button className="sign-in-button">
+      <button type="submit" className="sign-in-button">
         {login.loading ? "loading..." : "sign in"}
       </button>
 
       <div>
-        <p className={`message ${login.isAuthenticated === true ? "active" :  "out" }`}>
-
-          {login.message === "Error: data and hash arguments required" ? (
-            ""
-          ) : (
-            login.message
-          )}
+        <p
+          className={`message ${
+            login.isAuthenticated === true ? "green" : "red"
+          }`}>
+          {login.message ? login.message : " "}
         </p>
       </div>
     </form>
