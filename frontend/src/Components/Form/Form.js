@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginPosts } from "../../actions/post.actions";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { LOGIN } from "../../actions/post.actions";
 import { TOKEN } from "../../actions/post.actions";
 import { LOGIN_ERROR } from "../../actions/post.actions";
 
@@ -17,7 +16,7 @@ const Form = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleForm = (e) => {
+  const handleForm = async (e) => {
     e.preventDefault();
 
     const loginData = {
@@ -30,8 +29,7 @@ const Form = () => {
       loading: login.loading,
     };
     console.log(form.current[2].checked);
-    console.log(login.token);
-    dispatch(loginPosts(loginData));
+    await dispatch(loginPosts(loginData));
     form.current.reset();
   };
 
@@ -42,20 +40,21 @@ const Form = () => {
       }, 2000);
     } else if (login.isAuthenticated === false) {
       setTimeout(() => {
+        navigate("/login");
         dispatch({ type: LOGIN_ERROR, payload: { message: "" } });
+        dispatch({ type: TOKEN, payload: { token: null } });
       }, 2000);
     }
 
     if (login.token) {
       dispatch({ type: TOKEN, payload: { token: login.token } });
-      localStorage.setItem("token", login.token);
-      console.log(login.token + "token");
+      sessionStorage.setItem("token", login.token);
+      console.log(login.token);
     }
 
     if (form.current[2].checked === true) {
-      dispatch({ type: LOGIN, payload: { token: true } });
       localStorage.setItem("token", login.token);
-      console.log("token");
+      console.log(localStorage.getItem("token"));
     }
 
     if (login.message === "Error: data and hash arguments required") {

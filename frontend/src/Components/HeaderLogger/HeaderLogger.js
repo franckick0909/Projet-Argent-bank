@@ -4,28 +4,38 @@ import logo from "../../assets/img/argentBankLogo.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
 import { useDispatch, useSelector } from "react-redux";
 import { LOGOUT } from "../../actions/post.actions";
 import { TOKEN } from "../../actions/post.actions"; 
 
+import { profilePosts } from "../../actions/post.actions";
+import { useEffect } from "react";
+
 const HeaderLogger = () => {
 
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const login = useSelector((state) => state.loginReducer);
   const isAuthenticated = login.isAuthenticated;
 
   const profil = useSelector((state) => state.profileReducer);
-  
 
+  useEffect(() => {
+    dispatch(profilePosts());
+    dispatch({ type: TOKEN, payload: { token: sessionStorage.getItem("token") } });
+
+}, [dispatch, login.isAuthenticated, profil.userName]);
+
+  
+  
   const handleIsAuthenticated = () => {
+
     if (isAuthenticated === true) {
       dispatch({ type: LOGOUT });
-      dispatch({ type: TOKEN, payload: { token: null } });
-      sessionStorage.removeItem("token");
-      localStorage.removeItem("token");
+      dispatch({
+        type: TOKEN, payload: { token: sessionStorage.removeItem("token") },
+      });
       navigate("/");
       window.location.reload();
     } else {
@@ -45,13 +55,18 @@ const navigate = useNavigate();
       </Link>
       <div>
         <Link to="/user" className="main-nav-item">
-          <FaUserCircle />
+          <FaUserCircle className="iconUserCircle" />
+
           {isAuthenticated ? "Welcome " + profil.userName : "User"}
         </Link>
 
-        <Link to="/" onClick={handleIsAuthenticated} className="main-nav-item">
+        <Link
+          to="/"
+          onClick={handleIsAuthenticated}
+          className={`main-nav-item ${isAuthenticated ? "signOut" : "signIn"}`}
+        >
           <FaSignOutAlt />
-          {isAuthenticated === true ? "Sign Out" : "Sign In"}
+          {isAuthenticated ? "Sign Out" : "Sign In"}
         </Link>
       </div>
     </nav>

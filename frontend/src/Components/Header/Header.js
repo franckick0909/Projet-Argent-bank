@@ -46,7 +46,12 @@ const Header = () => {
           <h1 className="sr-only">Argent Bank</h1>
         </Link>
         <div>
-          <Link to="/login" className="main-nav-item" onClick={handleLog}>
+          <Link
+            to="/login"
+            className={`main-nav-item ${
+              isAuthenticated ? "signOut" : "signIn"
+            }`}
+            onClick={handleLog}>
             <FaUserCircle />
             {isAuthenticated === true ? "Sign Out" : "Sign In"}
           </Link>

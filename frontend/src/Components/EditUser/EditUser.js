@@ -1,6 +1,7 @@
 import React from "react";
 import "./EditUser.scss";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const EditUser = () => {
     
@@ -8,9 +9,15 @@ const EditUser = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
+        const login = useSelector((state) => state.loginReducer);
+        const profil = useSelector((state) => state.profileReducer);
+
+        const isAuthenticated = login.isAuthenticated;
+
   return (
     <div className="headerEdit">
-      <h1>Edit user info</h1>
+      <h1>Edit {isAuthenticated ? profil.userName : "user"} info</h1>
+
       <form className="formEdit">
         <div className="formgroup">
           <label htmlFor="username">User name</label>
