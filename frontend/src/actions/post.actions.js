@@ -5,7 +5,7 @@ export const LOGOUT = "LOGOUT";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const PROFILE = "PROFILE";
 export const PROFILE_ERROR = "PROFILE_ERROR";
-
+export const UPDATE_USER = "UPDATE_USER";
 
 export const loginPosts = (data) => {
   return async (dispatch) => {
@@ -22,12 +22,12 @@ export const loginPosts = (data) => {
       } else if (response.status === 401) {
         dispatch({ type: LOGIN_ERROR, payload: response.data });
         console.log(response.data);
-        dispatch({ type: TOKEN, payload: { token: null } })
+        dispatch({ type: TOKEN, payload: { token: null } });
       }
     } catch (error) {
       dispatch({ type: LOGIN_ERROR, payload: error.response.data });
       console.log(error.response.data);
-      dispatch({ type: TOKEN, payload: { token: null } })
+      dispatch({ type: TOKEN, payload: { token: null } });
     }
   };
 };
@@ -36,10 +36,12 @@ export const logoutPosts = () => {
   return (dispatch) => {
     dispatch({ type: LOGOUT });
     sessionStorage.removeItem("token"); // Supprimer le jeton à la déconnexion
-    dispatch({ type: TOKEN, payload: { token: sessionStorage.removeItem("token") } });
+    dispatch({
+      type: TOKEN,
+      payload: { token: sessionStorage.removeItem("token") },
+    });
   };
 };
-
 
 export const profilePosts = (dataProfil) => {
   return async (dispatch) => {
@@ -67,6 +69,25 @@ export const profilePosts = (dataProfil) => {
     } catch (error) {
       dispatch({ type: PROFILE_ERROR, payload: error.response.data });
       console.log(error.response.data);
-    } 
+    }
   };
-}
+};
+
+export const updateUser = (userName) => {
+  return async (dispatch) => {
+    if (userName) {
+      const response = await axios.put(
+        `http://localhost:3001/api/v1/user/profile`,
+        userName,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch({ type: UPDATE_USER, payload: response.data });
+      console.log(response.data);
+    }
+  };
+};
