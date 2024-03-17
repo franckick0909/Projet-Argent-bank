@@ -16,7 +16,7 @@ const Welcome = () => {
         <h1 className="welcomeTitle">
           Welcome back
           <br />
-          {isAuthenticated ? profil.userName : "user"}
+          <span className="span">{isAuthenticated ? profil.userName : "user"}</span>
         </h1>
         <Link to="/editprofil" className="edit-button">
           Edit Name

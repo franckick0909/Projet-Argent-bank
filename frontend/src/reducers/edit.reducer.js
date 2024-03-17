@@ -9,7 +9,7 @@ export default function editReducer(state = initialState, action) {
     case UPDATE_USER:
       return {
         ...state,
-        userName: action.payload.userName,
+          userName: action.payload.userName,
       };
     default:
       return state;

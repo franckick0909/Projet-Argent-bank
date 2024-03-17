@@ -4,39 +4,38 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "../../actions/post.actions";
+import { UPDATE_USER } from "../../actions/post.actions";
 
 const EditUser = () => {
-
   const login = useSelector((state) => state.loginReducer);
   const profil = useSelector((state) => state.profileReducer);
   const isAuthenticated = login.isAuthenticated;
 
-
   const [newUserName, setNewUserName] = useState("");
+
   const dispatch = useDispatch();
   const userName = useSelector((state) => state.editReducer.userName);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: "UPDATE_USER", payload: { userName: newUserName } });
+    dispatch({ type: UPDATE_USER, payload: { userName: newUserName } });
     dispatch(updateUser({ userName: newUserName }));
     setNewUserName("");
   };
 
-
   return (
     <div className="headerEdit">
-      <h1>Edit {isAuthenticated ? profil.userName : "user"} info</h1>
+      <h1>Edit <span className="span">{userName ? userName : "User"}</span> info</h1>
 
       <form className="formEdit" onSubmit={handleSubmit}>
         <div className="formgroup">
           <label htmlFor="username">User name :</label>
           <input
-            defaultValue={isAuthenticated ? profil.userName : ""}
             id="username"
             type="text"
             value={newUserName}
             onChange={(e) => setNewUserName(e.target.value)}
+            placeholder={userName ? userName : "User"}
           />
         </div>
 
@@ -46,6 +45,7 @@ const EditUser = () => {
             id="firstName"
             type="text"
             defaultValue={isAuthenticated ? profil.firstName : ""}
+            disabled
           />
         </div>
 
@@ -55,7 +55,7 @@ const EditUser = () => {
             id="lastName"
             type="text"
             defaultValue={isAuthenticated ? profil.lastName : ""}
-
+            disabled
           />
         </div>
 
@@ -68,7 +68,6 @@ const EditUser = () => {
             Retour
           </Link>
         </div>
-        <p className="newusername">Nouvel Username : {userName}</p>
       </form>
     </div>
   );

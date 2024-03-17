@@ -52,7 +52,11 @@ const Header = () => {
               isAuthenticated ? "signOut" : "signIn"
             }`}
             onClick={handleLog}>
-            <FaUserCircle />
+            <FaUserCircle
+              className={`main-nav-item ${
+                isAuthenticated === true ? "signOut" : "signIn"
+              }`}
+            />
             {isAuthenticated === true ? "Sign Out" : "Sign In"}
           </Link>
         </div>

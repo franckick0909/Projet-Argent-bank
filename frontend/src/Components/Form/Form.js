@@ -37,13 +37,13 @@ const Form = () => {
     if (login.isAuthenticated === true) {
       setTimeout(() => {
         navigate("/user");
-      }, 2000);
+      }, 1000);
     } else if (login.isAuthenticated === false) {
       setTimeout(() => {
         navigate("/login");
         dispatch({ type: LOGIN_ERROR, payload: { message: "" } });
         dispatch({ type: TOKEN, payload: { token: null } });
-      }, 2000);
+      }, 1000);
     }
 
     if (login.token) {

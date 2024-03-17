@@ -32,16 +32,7 @@ export const loginPosts = (data) => {
   };
 };
 
-export const logoutPosts = () => {
-  return (dispatch) => {
-    dispatch({ type: LOGOUT });
-    sessionStorage.removeItem("token"); // Supprimer le jeton à la déconnexion
-    dispatch({
-      type: TOKEN,
-      payload: { token: sessionStorage.removeItem("token") },
-    });
-  };
-};
+
 
 export const profilePosts = (dataProfil) => {
   return async (dispatch) => {
@@ -73,6 +64,7 @@ export const profilePosts = (dataProfil) => {
   };
 };
 
+
 export const updateUser = (userName) => {
   return async (dispatch) => {
     if (userName) {
@@ -89,5 +81,5 @@ export const updateUser = (userName) => {
       dispatch({ type: UPDATE_USER, payload: response.data });
       console.log(response.data);
     }
-  };
-};
+  }
+}
