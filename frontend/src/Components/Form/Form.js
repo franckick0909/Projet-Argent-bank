@@ -36,14 +36,14 @@ const Form = () => {
   useEffect(() => {
     if (login.isAuthenticated === true) {
       setTimeout(() => {
-        navigate("/user");
-      }, 1000);
+        navigate("/profile");
+      }, 500);
     } else if (login.isAuthenticated === false) {
       setTimeout(() => {
         navigate("/login");
         dispatch({ type: LOGIN_ERROR, payload: { message: "" } });
         dispatch({ type: TOKEN, payload: { token: null } });
-      }, 1000);
+      }, 500);
     }
 
     if (login.token) {
@@ -95,7 +95,7 @@ const Form = () => {
       <div>
         <p
           className={`message ${
-            login.isAuthenticated === true ? "green" : "red"
+            login.isAuthenticated ? "green" : "red"
           }`}>
           {login.message}
         </p>

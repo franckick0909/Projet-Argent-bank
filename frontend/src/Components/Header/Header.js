@@ -1,7 +1,7 @@
 
 import "./Header.scss";
 import { FaUserCircle } from "react-icons/fa";
-import logo from "../../assets/img/argentBankLogo.png";
+import logo from "../../assets/img/argentBankLogo.webp";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -25,7 +25,8 @@ const Header = () => {
       sessionStorage.removeItem("token");
       localStorage.removeItem("token");
       navigate("/");
-      window.location.reload();
+      sessionStorage.clear();
+      localStorage.clear();
     } else if (isAuthenticated === false) {
       navigate("/login");
     }

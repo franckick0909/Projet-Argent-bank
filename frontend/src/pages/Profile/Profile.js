@@ -1,4 +1,5 @@
 import React from "react";
+import "./Profile.scss";
 import HeaderLogger from "../../Components/HeaderLogger/HeaderLogger";
 import Accounts from "../../Components/Accounts/Accounts";
 import dataAccount from "../../dataAccount.json";
@@ -6,7 +7,7 @@ import Footer from "../../Components/Footer/Footer";
 import Welcome from "../../Components/Welcome/Welcome";
 
 
-const User = () => {
+const Profile = () => {
   return (
     <>
       <HeaderLogger />
@@ -32,4 +33,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Profile;

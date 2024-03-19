@@ -61,11 +61,11 @@ const EditUser = () => {
 
         <div className="btn_group">
           <button className="sign-in-button " type="submit">
-            Update
+            Save
           </button>
 
-          <Link to="/user" className="sign-in-button edit-button" type="submit">
-            Retour
+          <Link to="/profile" className="sign-in-button edit-button" type="submit">
+            Cancel
           </Link>
         </div>
       </form>

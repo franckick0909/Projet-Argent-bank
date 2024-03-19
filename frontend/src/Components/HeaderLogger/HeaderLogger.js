@@ -1,6 +1,6 @@
 import "./HeaderLogger.scss";
 import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
-import logo from "../../assets/img/argentBankLogo.png";
+import logo from "../../assets/img/argentBankLogo.webp";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 

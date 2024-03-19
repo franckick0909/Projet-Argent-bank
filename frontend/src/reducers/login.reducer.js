@@ -27,6 +27,7 @@ export default function loginReducer(state = initialState, action) {
         token: null,
         email: null,
         password: null,
+        message: null,
       };
     case LOGIN_ERROR:
       return {
