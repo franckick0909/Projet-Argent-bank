@@ -54,7 +54,7 @@ const HeaderLogger = () => {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div className="main-nav-log">
-        <Link to="/user" className="main-nav-item">
+        <Link to="/editprofil" className="main-nav-item">
           <FaUserCircle
             className={`iconUserCircle ${
               isAuthenticated ? "signOut" : "signIn"
