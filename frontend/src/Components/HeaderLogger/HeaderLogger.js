@@ -53,14 +53,14 @@ const HeaderLogger = () => {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div>
+      <div className="main-nav-log">
         <Link to="/user" className="main-nav-item">
           <FaUserCircle
             className={`iconUserCircle ${
               isAuthenticated ? "signOut" : "signIn"
             }`}
           />
-          <span>Welcome </span>
+          {/* <span>Welcome </span> */}
           <span className="span">{userName ?  userName : "User"}</span>
 
           {/* {isAuthenticated ? "Welcome " + profil.userName : "User"} */}

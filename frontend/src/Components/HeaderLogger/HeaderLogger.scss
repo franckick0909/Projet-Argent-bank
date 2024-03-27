@@ -16,3 +16,14 @@
 .span {
     color: lightcoral;
 }
+
+.main-nav-log{
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 450px){
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}
