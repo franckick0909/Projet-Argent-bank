@@ -19,8 +19,10 @@ const Home = () => {
         <Hero />
         <section className="features">
           <h2 className="sr-only">Features</h2>
-          <Feature image={iconChat} alt={dataFeature[0].alt} title={dataFeature[0].title} children={dataFeature[0].children}  />
-          <Feature image={iconMoney} alt={dataFeature[1].alt} title={dataFeature[1].title} children={dataFeature[1].children}  />
+          <Feature image={iconChat} alt={dataFeature[0].alt} title={dataFeature[0].title} children={dataFeature[0].children} />
+          
+          <Feature image={iconMoney} alt={dataFeature[1].alt} title={dataFeature[1].title} children={dataFeature[1].children} />
+          
           <Feature image={iconSecurity} alt={dataFeature[2].alt} title={dataFeature[2].title} children={dataFeature[2].children}  />
         </section>
       </main>

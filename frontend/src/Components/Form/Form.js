@@ -3,15 +3,18 @@ import { Link } from "react-router-dom";
 
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginPosts } from "../../actions/post.actions";
+import { LOGIN, loginPosts } from "../../actions/post.actions";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { TOKEN } from "../../actions/post.actions";
 import { LOGIN_ERROR } from "../../actions/post.actions";
+import { LOGOUT } from "../../actions/post.actions"; 
+import { useState } from "react"; 
 
 const Form = () => {
   // STATES
   const form = useRef();
+const [error, setError] = useState(false);
   const login = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,38 +31,50 @@ const Form = () => {
       isAuthenticated: login.isAuthenticated,
       loading: login.loading,
     };
-    console.log(form.current[2].checked);
+    console.log(loginData);
     await dispatch(loginPosts(loginData));
     form.current.reset();
-  };
+  };      
+  
 
-  useEffect(() => {
+                
+  useEffect(() => {     
     if (login.isAuthenticated === true) {
       setTimeout(() => {
-        navigate("/profile");
-      }, 500);
-    } else if (login.isAuthenticated === false) {
-      setTimeout(() => {
-        navigate("/login");
-        dispatch({ type: LOGIN_ERROR, payload: { message: "" } });
-        dispatch({ type: TOKEN, payload: { token: null } });
-      }, 500);
+          navigate("/profile");
+      }, 2500);
+    } else if (login.isAuthenticated !== false) {
+      dispatch({ type: TOKEN, payload: { token: null } });
+      dispatch({ type: LOGIN_ERROR, payload: { message: null } });
+      dispatch({ type: LOGOUT });
     }
-
+    if (login.message === "User successfully logged in") {
+      dispatch({
+        type: LOGIN,
+        payload: { message: "User successfully !" },
+      });
+    }
+    if (login.message === "Error: Password is invalid") {
+        dispatch({
+          type: LOGIN_ERROR,
+          payload: { message: "Your Password is invalid" },
+        });
+    }
+    if (login.message === "Error: User not found!") {
+        dispatch({
+          type: LOGIN_ERROR,
+          payload: { message: "User not found!" },
+        });
+    }
     if (login.token) {
       dispatch({ type: TOKEN, payload: { token: login.token } });
       sessionStorage.setItem("token", login.token);
       console.log(login.token);
     }
-
     if (form.current[2].checked === true) {
       localStorage.setItem("token", login.token);
-      console.log(localStorage.getItem("token"));
     }
 
-    if (login.message === "Error: data and hash arguments required") {
-      dispatch({ type: LOGIN_ERROR, payload: { message: null } });
-    }
   }, [
     login.isAuthenticated,
     login.token,
@@ -67,6 +82,7 @@ const Form = () => {
     dispatch,
     navigate,
     login.message,
+    login.loading,
   ]);
 
   return (
@@ -88,17 +104,24 @@ const Form = () => {
         home
       </Link>
 
-      <button type="submit" className="sign-in-button">
-        {login.loading ? "loading..." : "sign in"}
+
+
+      <button
+        type="submit"
+        className="sign-in-button"
+        onClick={(e) => {
+          handleForm(e);
+          setError(true);
+        }}>
+        {login.isAuthenticated && login.loading ? "loading..." : "sign in"}
       </button>
 
       <div>
-        <p
-          className={`message ${
-            login.isAuthenticated ? "green" : "red"
-          }`}>
-          {login.message}
-        </p>
+        {error && (
+          <p className={`message ${login.isAuthenticated ? "green" : "red"}`}>
+            {login.message}
+          </p>
+        )}
       </div>
     </form>
   );

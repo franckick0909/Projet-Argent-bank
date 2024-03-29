@@ -1,6 +1,8 @@
 import { LOGIN, LOGIN_ERROR, TOKEN, LOGOUT } from "../actions/post.actions";
 
-const initialState = {};
+const initialState = {
+  message: null,
+};  
 
 export default function loginReducer(state = initialState, action) {
   switch (action.type) {
@@ -28,13 +30,14 @@ export default function loginReducer(state = initialState, action) {
         email: null,
         password: null,
         message: null,
+        login: null
       };
     case LOGIN_ERROR:
       return {
         ...state,
         isAuthenticated: false,
         message: action.payload.message,
-        loading: false,
+        loading: null,
         token: null,
         email: null,
         password: null,

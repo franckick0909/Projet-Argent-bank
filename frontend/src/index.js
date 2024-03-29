@@ -7,23 +7,21 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducers";
-import { loginPosts, profilePosts, updateUser } from "./actions/post.actions";
+import { loginPosts, profilePosts, updateUser } from "./actions/post.actions"; 
+const store = configureStore({  
 
-const store = configureStore({
-  // création du store
-  reducer: rootReducer,
-  devTools: true,
+  reducer: rootReducer,  
+  devTools: true,       
 });
 
-store.dispatch(loginPosts()); // dispatch de l'action loginPosts
-store.dispatch(profilePosts()); // dispatch de l'action profilePosts
-store.dispatch(updateUser()); // dispatch de l'action updateUser
-
+store.dispatch(loginPosts());
+store.dispatch(profilePosts()); 
+store.dispatch(updateUser()); 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+root.render( 
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={store}>  
       <App />
     </Provider>
   </React.StrictMode>

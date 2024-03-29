@@ -37,7 +37,6 @@ const HeaderLogger = () => {
       navigate("/");
       sessionStorage.clear();
       localStorage.clear();
-      // window.location.reload();
     } else {
       navigate("/login");
     }
@@ -60,7 +59,7 @@ const HeaderLogger = () => {
               isAuthenticated ? "signOut" : "signIn"
             }`}
           />
-          {/* <span>Welcome </span> */}
+          <span>Welcome </span>
           <span className="span">{userName ?  userName : "User"}</span>
 
           {/* {isAuthenticated ? "Welcome " + profil.userName : "User"} */}

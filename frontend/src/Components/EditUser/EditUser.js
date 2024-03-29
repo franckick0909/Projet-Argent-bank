@@ -7,25 +7,26 @@ import { updateUser } from "../../actions/post.actions";
 import { UPDATE_USER } from "../../actions/post.actions";
 
 const EditUser = () => {
-  const login = useSelector((state) => state.loginReducer);
-  const profil = useSelector((state) => state.profileReducer);
-  const isAuthenticated = login.isAuthenticated;
+  
+  const login = useSelector((state) => state.loginReducer); 
+  const profil = useSelector((state) => state.profileReducer); 
+  const isAuthenticated = login.isAuthenticated; 
 
-  const [newUserName, setNewUserName] = useState("");
+  const [newUserName, setNewUserName] = useState(""); 
 
   const dispatch = useDispatch();
   const userName = useSelector((state) => state.editReducer.userName);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     dispatch({ type: UPDATE_USER, payload: { userName: newUserName } });
-    dispatch(updateUser({ userName: newUserName }));
-    setNewUserName("");
+    dispatch(updateUser({ userName: newUserName }));  
+    setNewUserName("");  
   };
 
   return (
-    <div className="headerEdit">
-      <h1>Edit <span className="span">{userName ? userName : "User"}</span> info</h1>
+    <div className="headerEdit"> 
+      <h1>Edit <span className="span">{userName ? userName : "User"}</span> info</h1>  
 
       <form className="formEdit" onSubmit={handleSubmit}>
         <div className="formgroup">
@@ -33,9 +34,9 @@ const EditUser = () => {
           <input
             id="username"
             type="text"
-            value={newUserName}
+            value={newUserName} 
             onChange={(e) => setNewUserName(e.target.value)}
-            placeholder={userName ? userName : "User"}
+            placeholder={userName ? userName : "User"}  
           />
         </div>
 
@@ -45,7 +46,7 @@ const EditUser = () => {
             id="firstName"
             type="text"
             defaultValue={isAuthenticated ? profil.firstName : ""}
-            disabled
+            disabled 
           />
         </div>
 
