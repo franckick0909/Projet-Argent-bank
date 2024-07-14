@@ -1,4 +1,4 @@
-![Screenshot du projet](Projet-Argent-bank/frontend/img/argentBankLogo.webp)
+![Screenshot du projet](Projet-Argent-bank/frontend/assets/img/argentBankLogo.webp)
 
 # Lancer le backend:
 - cd backend
